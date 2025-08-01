@@ -1,0 +1,152 @@
+#action-container {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100dvh;
+  width: 100dvw;
+  background-color: rgba(0, 0, 0, 0.323);
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.popup--opened {
+  display: flex;
+}
+
+.popup--closed {
+  display: none;
+}
+
+.popup-container {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  background: white;
+  border: 2px solid var(--primary);
+  z-index: 110;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.close-popup {
+  all: unset;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.popup-data {
+  display: grid;
+  grid-template-rows: auto 1fr 2fr auto;
+  gap: 10px;
+  height: 100%;
+}
+
+.popup-data--game {
+  grid-template-rows: auto 1fr 2fr auto;
+}
+
+.popup-data--round {
+  grid-template-rows: auto 1fr auto;
+}
+
+.players {
+  display: flex;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.player-data {
+  background-color: var(--secondary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-round {
+  gap: 20px;
+}
+
+#player-name {
+  all: unset;
+  width: 80%;
+  border-bottom: 2px solid var(--secondary);
+}
+
+.form-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+#game-container {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.player-card {
+  background-color: var(--secondary);
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.player-card--warning {
+  background-color: var(--warning) !important;
+}
+
+.player-card--error {
+  background-color: var(--error) !important;
+}
+
+.player-card--name {
+  font-size: 30px;
+}
+
+.player-card--score {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.round-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+#input-suma {
+  all: unset;
+  border: 1px solid var(--primary);
+  padding: 10px;
+  width: 3em;
+  text-align: center;
+}

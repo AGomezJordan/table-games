@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Chinchón</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+  <div id="action-container">
+    <button
+      class="button"
+      onclick="newGame()"
+    >
+      Nueva partida
+    </button>
+    <h1 style="text-align: center;">CHINCHÓN</h1>
+    <button class="button" onclick="endRound()">Fin de ronda</button>
+  </div>
+  <div id="game-container"></div>
+  <div class="popup popup--closed" id="popupBackGround">
+    <div class="popup-container">
+      <button
+        class="close-popup"
+        onclick="onClosePopUp('popupBackGround')"
+      >
+        X
+      </button>
+      <div class="popup-data popup-data--game">
+        <div class="row">
+          <div class="label">Jugadores:</div>
+          <div class="label-data" id="player-count">0</div>
+        </div>
+        <div class="players" id="player-lists"></div>
+        <div class="form">
+          <div class="label">Nombre</div>
+          <input type="text" id="player-name" />
+        </div>
+        <div class="form-footer">
+          <button class="button" onclick="saveNewPlayer()">Añadir</button>
+          <button class="button button--active" onclick="startGame()">Empezar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup popup--closed" id="popupFinRonda">
+    <div class="popup-container">
+      <button
+        class="close-popup"
+        onclick="onClosePopUp('popupFinRonda')"
+      >
+        X
+      </button>
+      <div class="popup-data popup-data--round">
+        <div class="row">
+          <div class="label">FIN RONDA</div>
+        </div>
+        <div class="form form-round">
+          <div class="player-card">
+            <div class="player-card--name" id="round-name"></div>
+            <div class="player-card--score" id="round-score"></div>
+          </div>
+          <div class="round-action">
+            <button class="button" onclick="setSum(-10)">-10</button>
+            <input id="input-suma" type="number" min="0" value="0" oninput="setSum(this.value)" />
+          </div>
+        </div>
+        <div class="form-footer">
+          <button class="button" onclick="onClosePopUp('popupFinRonda')">Cancelar</button>
+          <button class="button button--active" onclick="nextPlayer()">Siguiente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./javascript.js"></script>
+</body>
+</html>

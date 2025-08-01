@@ -1,0 +1,58 @@
+@import './variables.css';
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+  height: 100dvh;
+  width: 100dvw;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-family: 'Luckiest Guy', sans-serif;
+  font-size: 25px;
+}
+
+.button {
+  all: unset;
+  background-color: var(--primary);
+  min-height: 20px;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.button:hover {
+  background-color: var(--primary-hover);
+}
+
+.button--active {
+  background-color: var(--active) !important;
+}
+
+.button--active:hover {
+  background-color: var(--active-hover) !important;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+
+@media screen and (max-width: 500px) {
+  body {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 16px;
+  }
+  input[type="text"] {
+    font-size: 16px;
+  }
+}
