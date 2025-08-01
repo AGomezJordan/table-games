@@ -1,0 +1,10 @@
+:root {
+  --primary: #d46435;
+  --primary-hover: #d48b6c;
+  --secondary: #e0c270;
+  --active: #5def4d;
+  --active-hover: #85e27b;
+  --error: #d90429;
+  --warning: #e7e019;
+  --background: #f1faee;
+}

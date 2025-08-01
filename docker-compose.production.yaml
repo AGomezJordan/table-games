@@ -1,0 +1,13 @@
+version: '3'
+services:
+  table-games:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    image: table-games:latest
+    container_name: table-games
+    restart: always
+    ports:
+    - '9016:80'
+    volumes:
+    - ./src:/usr/local/apache2/htdocs
