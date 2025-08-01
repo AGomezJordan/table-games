@@ -10,4 +10,4 @@ services:
     ports:
     - '9016:80'
     volumes:
-    - ./src:/usr/local/apache2/htdocs
+    - .:/usr/local/apache2/htdocs
