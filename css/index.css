@@ -38,6 +38,13 @@ body {
   background-color: var(--active-hover) !important;
 }
 
+.button--selected {
+  background-color: var(--secondary);
+}
+.button--selected:hover {
+  background-color: var(--secondary-hover);
+}
+
 .row {
   display: flex;
   gap: 10px;

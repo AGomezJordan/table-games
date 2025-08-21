@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+.final-score-container {
+  text-align: center;
+  font-weight: bold;
+}
+
 .popup {
   position: absolute;
   top: 0;
@@ -84,6 +89,12 @@
   align-items: center;
 }
 
+.form--new-game {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr;
+  gap: 5px;
+}
+
 .form-round {
   gap: 20px;
 }
@@ -119,12 +130,17 @@
   text-align: center;
 }
 
-.player-card--warning {
-  background-color: var(--warning) !important;
+.player-card--orange {
+  background-color: orange !important;
 }
 
-.player-card--error {
-  background-color: var(--error) !important;
+.player-card--red {
+  background-color: red !important;
+}
+
+.player-card--gray {
+  background-color: gray !important;
+  opacity: .5;
 }
 
 .player-card--name {
@@ -141,6 +157,18 @@
   justify-content: center;
   align-items: center;
   gap: 30px;
+}
+
+#button-restart-player {
+  display: none;
+}
+
+#error-message {
+  color: var(--error);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  display: none;
 }
 
 #input-suma {
