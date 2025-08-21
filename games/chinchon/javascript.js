@@ -1,9 +1,13 @@
 let players = [];
 let currentSum = 0;
 let currentPlayer = 0;
+let finalScore = 100;
+let nextSecondTime = false;
 
 (() => {
   const playersSaved = localStorage.getItem('players');
+  const finalScoreSaved = localStorage.getItem('finalScore');
+  finalScore = finalScoreSaved ?? 100;
   if (playersSaved) {
     players = JSON.parse(playersSaved);
     startGame();
@@ -56,7 +60,6 @@ function saveNewPlayer () {
     removePlayer(id);
     divPlayer.remove();
     document.getElementById('player-count').innerText = players.length;
-    console.log({ players })
   };
 
   divPlayer.appendChild(name);
@@ -70,7 +73,6 @@ function saveNewPlayer () {
 }
 
 function removePlayer (playerId) {
-  console.log('ELIMINADO: ', playerId)
   const index = players.findIndex(player => player.id === playerId);
   if (index !== -1) {
     players.splice(index, 1);
@@ -78,11 +80,14 @@ function removePlayer (playerId) {
 }
 
 function startGame() {
+  nextSecondTime = false;
   onClosePopUp("popupBackGround");
   const container = document.getElementById('game-container');
   while (container.firstChild) {
     container.removeChild(container.firstChild);
   }
+  const finalScoreLabel = document.getElementById('label-final-score');
+  finalScoreLabel.textContent = finalScore;
   players.forEach((player) => {
     const playerCard = document.createElement('div');
     playerCard.classList.add('player-card');
@@ -98,15 +103,38 @@ function startGame() {
     playerCard.appendChild(playerName);
     playerCard.appendChild(playerScore);
 
+    let type = '';
+    if (player.score >= finalScore * 0.5 && player.score < finalScore * 0.8) {
+      type = 'orange';
+    } else if (player.score >= finalScore * 0.8 && player.score <= finalScore) {
+      type = 'red';
+    } else if (player.score > finalScore) {
+      type = 'gray';
+    }
+
+    playerCard.classList.add(`player-card--${type}`)
+
     container.appendChild(playerCard);
   });
 
   localStorage.setItem('players', JSON.stringify(players));
+  localStorage.setItem('finalScore', finalScore);
 }
 
 function endRound() {
   setCurrentPlayer();
   onOpenPopUp('popupFinRonda');
+}
+
+function restartPlayer() {
+  const errorMessage = document.getElementById('error-message');
+  const maxScore = Math.max(...players.map(p => p.score <= finalScore * 0.9 ? p.score : -Infinity));
+  if (!isFinite(maxScore)) {
+    errorMessage.style.display = 'block';
+  } else {
+    players[currentPlayer].score = maxScore;
+    nextPlayer();
+  }
 }
 
 function setCurrentPlayer() {
@@ -117,28 +145,59 @@ function setCurrentPlayer() {
   const score = document.getElementById('round-score');
   score.textContent = player.score;
 
+  const restarPlayer = document.getElementById('button-restart-player');
+  const lessTen = document.getElementById('button-less-10');
   const inputSuma = document.getElementById('input-suma');
   inputSuma.value = 0;
+  
+  if (player.score > finalScore) {
+    restarPlayer.style.display = "block";
+    inputSuma.style.display = "none";
+    lessTen.style.display = "none";
+    nextSecondTime = false;
+  } else {
+    inputSuma.style.display = "block";
+    lessTen.style.display = "block";
+    restarPlayer.style.display = "none";
+    nextSecondTime = false;
+  }
 }
 
 function setSum(val) {
-  currentSum = parseInt(val);
-  const player = players[currentPlayer];
-  const score = document.getElementById('round-score');
-  score.textContent = "";
-  score.textContent = parseInt(player.score) + currentSum;
+  if (val) {
+    const player = players[currentPlayer];
+    currentSum = val !== 'reset' ? parseInt(val) : -parseInt(player.score);
+    const score = document.getElementById('round-score');
+    score.textContent = "";
+    score.textContent = parseInt(player.score) + currentSum;
+  }
+}
+
+function setFinalScore(score) {
+  const currentSelected = document.getElementsByClassName('button button--selected');
+  if (currentSelected.length) {
+    currentSelected[0].classList.remove('button--selected');
+  }
+  const button = document.getElementById(`button_score--${score}`);
+  if (button) {
+    button.classList.add('button--selected');
+  }
+  finalScore = score;
 }
 
 function nextPlayer() {
+  const errorMessage = document.getElementById('error-message');
+    errorMessage.style.display = 'none';
   players[currentPlayer].score += currentSum;
+  currentSum = 0;
   
-  if (currentPlayer == players.length - 1) {
+  if (currentPlayer == players.length - 1 && (players[currentPlayer].score <= finalScore || !nextSecondTime)) {
     onClosePopUp('popupFinRonda');
     startGame();
     currentPlayer = 0;
-    currentSum = 0;
   } else {
-    currentPlayer += 1;
+    sum = players[currentPlayer].score > finalScore && nextSecondTime ? 0 : 1;
+    currentPlayer += sum;
     setCurrentPlayer();
   }
 }
